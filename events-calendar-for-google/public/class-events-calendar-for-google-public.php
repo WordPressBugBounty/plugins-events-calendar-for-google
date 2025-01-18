@@ -316,7 +316,8 @@ class ECFG_events_calendar_google_Public {
 					{
 						$start_date = $events[$i]['start_date'];
 						$end_date = $events[$i]['end_date'];
-						$event_timezone = $events[$i]['timezone'];
+						//$event_timezone = $events[$i]['timezone'];
+						$event_timezone =  $this->custom_hooks->ecfg_e_timezone_function($events[$i]['timezone']); //based on selected preference
 						$event_title = sanitize_text_field($events[$i]['name']);
 						$event_content = wp_kses_post($events[$i]['description']);
 						$event_location = wp_kses_post($events[$i]['location']);
@@ -390,7 +391,8 @@ class ECFG_events_calendar_google_Public {
 								{
 									$start_date = $events[$i]['start_date'];
 									$end_date = $events[$i]['end_date'];
-									$event_timezone = $events[$i]['timezone'];
+									//$event_timezone = $events[$i]['timezone'];
+									$event_timezone =  $this->custom_hooks->ecfg_e_timezone_function($events[$i]['timezone']); //based on selected preference
 									$event_title = sanitize_text_field($events[$i]['name']);
 									$event_content = wp_kses_post($events[$i]['description']);
 									$event_location = wp_kses_post($events[$i]['location']);
