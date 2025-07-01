@@ -112,9 +112,10 @@ class ECFG_events_calendar_google_Public {
 		$client_key = $this->template_function->client_key; 
 		$calender_id = $this->template_function->calender_id; 
 		$timezone = new DateTimeZone($this->custom_hooks->ecfg_google_timezone_function());
+		$timezone_name = $timezone->getName(); 
 	    $current_date = new DateTime('now', $timezone);
 		$formatted_date = $current_date->format('Y-m-d H:i');
-		
+				
 		
 		/*the above timezone function sets the calendar timezone .further called by fullcalendar-events.js*/ 
 		
@@ -123,7 +124,7 @@ class ECFG_events_calendar_google_Public {
 			'api' => $client_key,
 			'id' => $calender_id,
 			'current_date'=>$formatted_date,
-			'cal_timezone'=>$timezone,
+			'cal_timezone'=>$timezone_name,
 		); 
         wp_enqueue_script( 'gc-fullcalender-layout', plugin_dir_url( __FILE__ ) . 'js/gc-fullcalender.js', array( 'jquery' ), $this->version, false );   
 		wp_enqueue_script( 'gc-fullcalender-events', plugin_dir_url( __FILE__ ) . 'js/gc-fullcalender-events.js', array( 'jquery' ), $this->version, true );
@@ -153,7 +154,7 @@ class ECFG_events_calendar_google_Public {
 		$tgc_date_bc_color = $this->template_function->ECFG_option_group_field('gc_advanced_settings','gc_date_section_style','date-bc-color');
 		$tgc_date_bc_color  = isset($tgc_date_bc_color)? $tgc_date_bc_color : '#08267c';
 		$tgc_date_text_color = $this->template_function->ECFG_option_group_field('gc_advanced_settings','gc_date_section_style','date-text-color');
-		$tgc_date_text_color = isset($tgc_date_text_color) ? $tgc_date_text_color : '#ffffff'; 
+		$tgc_date_text_color = isset($tgc_date_text_color) ? $tgc_date_text_color : '#e1e1e1'; 
 		/*event description style*/
 		$tgc_desc_bc_color =  $this->template_function->ECFG_option_group_field('gc_advanced_settings','gc_event_desc_style','desc-bc-color');
         $tgc_desc_bc_color  = $tgc_desc_bc_color ? $tgc_desc_bc_color : '#ffffff';

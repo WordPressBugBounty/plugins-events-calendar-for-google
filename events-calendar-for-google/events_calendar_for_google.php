@@ -6,7 +6,7 @@
  * @wordpress-plugin
  * Plugin Name:       Events Calendar for Google
  * Description:       List Google Calender with customized layouts. Manange your Calender events Style from wordpress dashboard.
- * Version:           3.1.0
+ * Version:           3.2.0
  * Author:            Blue Plugins
  * Author URI:        https://blueplugins.com/
  * License:           GPL-2.0+
@@ -23,7 +23,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'ECFG_VERSION', '3.1.0' );
+define( 'ECFG_VERSION', '3.2.0' );
 define('ECFG_PLUGIN_DIR',plugin_dir_path( __FILE__ ));
 
 
@@ -56,7 +56,7 @@ class ECFG_Events_Calendar_for_Google{
 		if ( defined( 'ECFG_VERSION' ) ) {
 			$this->version = ECFG_VERSION;
 		} else {
-			$this->version = '3.1.0';
+			$this->version = '3.2.0';
 		}
 		$this->plugin_name = 'events_calendar_google';
 
@@ -228,6 +228,34 @@ function ecfg_activate_events_calendar_google() {
 	//nothing to do
 	$time = strtotime("+1 day");
 	update_user_meta( get_current_user_id(), 'ecfg_activated_on', $time );
+	$settings = array(
+        'gc_date_section_style' => array(
+            'date_design'     => 'style_1',
+            'date-bc-color'   => '#08267c',
+            'date-text-color' => '#e1e1e1',
+        ),
+        'gc_event_desc_style' => array(
+            'title_tag'     => 'h4',
+            'desc-bc-color' => '#ffffff',
+            'title_color'   => '#08267c',
+            'icon_color'    => '#08267c',
+        ),
+        'gc_button_style' => array(
+            'button_bc'         => '#08267c',
+            'button_text'       => '#ffffff',
+            'button_bc_hover'   => '#08267c',
+            'button_text_hover' => '#ffffff',
+        ),
+        'gc_pagination' => array(
+            'gc_event_per_page' => '0',
+        ),
+        'gc_event_timezone' => array(
+            'gc_timezone_preference' => 'default_cal',
+            'gc_custom_timezone'     => 'UTC',
+        )
+    );
+
+    add_option('gc_advanced_settings', $settings);
 	
 }
 
@@ -236,10 +264,11 @@ function ecfg_activate_events_calendar_google() {
  * This action is documented in includes/class-events-calendar-for-google-deactivator.php
  */
 function ecfg_deactivate_events_calendar_google() {
+
 	//nothing to do
+//delete_option('gc_advanced_settings');
 }
 
 register_activation_hook( __FILE__, 'ecfg_activate_events_calendar_google' );
 register_deactivation_hook( __FILE__, 'ecfg_deactivate_events_calendar_google' );
-
 
